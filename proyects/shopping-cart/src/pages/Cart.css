@@ -6,6 +6,13 @@
   right: 0px;
   top: 0px;
   width: 200px;
+  transition: 0.5s all ease-in-out;
+}
+button {
+  color: white;
+  margin-left: 1rem;
+  padding: 0.2rem;
+  margin-bottom: 0.5rem;
 }
 
 .cart img {
@@ -48,10 +55,11 @@
 }
 
 .cart-button:hover {
-  scale: 1.1;
+  transform: scale(1.1);
 }
 
 .cart-button ~ input:checked ~ .cart {
   height: 100%;
   display: block;
+  transition: all 0.3s ease;
 }

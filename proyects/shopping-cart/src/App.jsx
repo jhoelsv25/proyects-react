@@ -4,6 +4,7 @@ import { products as initialProduct } from "./mocks/products.json"
 import { Header } from "./pages/Header";
 import { Footer } from "./pages/Footer";
 import { Cart } from "./pages/Cart";
+import { CartProvider } from "./context/cartsContext.jsx";
 
 
 
@@ -14,11 +15,11 @@ export const App = () => {
   const filteredProducts = filterProducts(initialProduct);
 
   return (
-    <>
+    <CartProvider>
       <Header />
       <Products products={filteredProducts} />
       <Footer />
       <Cart />
-    </>
+    </CartProvider>
   )
 }
