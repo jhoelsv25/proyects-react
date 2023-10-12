@@ -20,6 +20,11 @@
     "standard": "^17.1.0"
   },
   "eslintConfig": {
-    "extends":"./node_modules/standard/eslintrc.json"
+    "extends": "./node_modules/standard/eslintrc.json"
+  },
+  "dependencies": {
+    "react-router-dom": "6.16.0",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1"
   }
 }
