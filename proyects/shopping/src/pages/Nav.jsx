@@ -1,18 +1,22 @@
 
+import { Link, NavLink } from "react-router-dom";
 
 export const Nav = () => {
+    const actived = ({ isActive, isPending }) => {
+        return isPending ? 'text-gray-400' : isActive ? 'text-blue-500' : ''
+    }
     return (
         <nav className="flex justify-between items-center  font-medium ">
 
             <ul className="flex gap-5 ">
                 <li className="hover:text-blue-500">
-                    <a href="">Home</a>
+                    <NavLink to='/' className={({ isActive, isPending }) => actived({ isActive, isPending })}>Home</NavLink>
                 </li>
                 <li className="hover:text-blue-500">
-                    <a href="">Categories</a>
+                    <NavLink to='/categories' className={({ isActive, isPending }) => actived({ isActive, isPending })} >Categories</NavLink>
                 </li>
                 <li className="hover:text-blue-500">
-                    <a href="">Products</a>
+                    <NavLink to='/products' className={({ isActive, isPending }) => actived({ isActive, isPending })} >Products</NavLink>
                 </li>
                 <li className="hover:text-blue-500">
                     <a href="">Blog</a>
@@ -28,6 +32,6 @@ export const Nav = () => {
             </ul>
 
             <a href="" className="hover:text-blue-500">Special Offters</a>
-        </nav>
+        </nav >
     )
 }
