@@ -8,6 +8,7 @@ import { CategoryPage } from './routes/CategoryPage';
 import { CartPage } from './routes/CartPage';
 import { ViewListProvider } from './contexts/viewContext';
 import { CartProvider } from './contexts/cartContext';
+import { ShoppingCart } from './routes/ShoppingCart';
 
 
 export const App = () => {
@@ -26,7 +27,11 @@ export const App = () => {
             <Route path="/products" element={<ProductPage />} />
             <Route path="/products/:id" element={<ProductPage />} />
             <Route path="/categories" element={<CategoryPage />} />
-            <Route path='/cart' element={<CartPage />} />
+            <Route path='/cart' element={<CartPage />} >
+              <Route path='shopping-cart' element={<ShoppingCart />} />
+              <Route path='checkout' element={<h1>chekoot </h1>} />
+              <Route path='order-complete' element={<h1>complete </h1>} />
+            </Route>
           </Routes>
         </main>
       </ViewListProvider>

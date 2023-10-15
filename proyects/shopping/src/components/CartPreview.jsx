@@ -16,7 +16,7 @@ export const CartPreview = ({ setActived }) => {
                 <CardPreview />
 
                 <div className="flex flex-col justify-center w-full border-t sticky bottom-0 bg-gray-50 z-30 py-2">
-                    <Link to='/cart' onClick={() => setActived(false)} className="text-center text-gray-400 hover:text-blue-500 underline">
+                    <Link to='/cart/shopping-cart' onClick={() => setActived(false)} className="text-center text-gray-400 hover:text-blue-500 underline">
                         View cart
                     </Link>
                     <button className="bg-black text-white uppercase font-bold py-3 px-4 rounded-md mt-2 hover:opacity-80 transition-colors">
