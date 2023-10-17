@@ -1,11 +1,13 @@
 import { IconSearch } from "../icons/Icons"
-
+import { useFilter } from "../hooks/useFilter"
+//import { Navigate } from "react-router-dom";
 
 export const Search = () => {
+    const { setSearch } = useFilter()
     function changeValue(e) {
         if (e.key === 'Enter') {
-
-            console.log(e.target.value);
+            setSearch(e.target.value);
+            e.target.value = '';
         }
     }
     return (

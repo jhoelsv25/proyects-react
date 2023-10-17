@@ -7,13 +7,16 @@ import { ProductPage } from './routes/ProductPage'
 import { CategoryPage } from './routes/CategoryPage';
 import { CartPage } from './routes/CartPage';
 import { ViewListProvider } from './contexts/viewContext';
-import { CartProvider } from './contexts/cartContext';
+import { FilterProvider } from './contexts/filterContext';
 import { ShoppingCart } from './routes/ShoppingCart';
 
 
 export const App = () => {
+
+
   return (
-    <CartProvider>
+
+    <FilterProvider>
       <ViewListProvider>
         <main className='w-full' >
           <header className=' border-b'>
@@ -35,6 +38,6 @@ export const App = () => {
           </Routes>
         </main>
       </ViewListProvider>
-    </CartProvider>
+    </FilterProvider>
   )
 }

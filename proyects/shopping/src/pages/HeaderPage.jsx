@@ -3,8 +3,9 @@ import { Search } from '../components/Search'
 import { IconBag, IconBars, IconCall, IconHeart } from '../icons/Icons'
 import { Nav } from './Nav'
 import { CartPreview } from '../components/CartPreview'
+import { useCart } from '../hooks/useCart'
 export const Info = ({ setActived }) => {
-
+    const { cart, total } = useCart()
 
     return (
         <section className='flex gap-3'>
@@ -22,12 +23,12 @@ export const Info = ({ setActived }) => {
             <div className="flex gap-3 items-center">
                 <span className='flex flex-col max-lg:hidden group hover:text-blue-500 cursor-pointer'>
                     <small className='text-sm text-gray-800 group-hover:text-blue-500'> Shopping cart:</small>
-                    <h1 className='font-bold'>$ 0.00</h1>
+                    <h1 className='font-bold'>$ {total}</h1>
                 </span>
                 <button className='relatve flex justify-end cursor-pointer ' onClick={() => setActived(true)}>
                     <IconBag />
                     <i className='bg-blue-500 absolute  top-10 rounded-full h-5 w-5 flex items-center justify-center'>
-                        <small className='text-xs font-medium text-white'>0</small>
+                        <small className='text-xs font-medium text-white'>{cart.length}</small>
                     </i>
                 </button>
             </div>

@@ -12,7 +12,9 @@ export const FilterProduct = () => {
     const handleClick = (e) => {
         console.log(e.target.value);
     }
-    const onChange = (e) => setPrice(e.target.value)
+    const onChange = (e) => {
+        setPrice(e.target.value)
+    }
     return (
         <section className="flex justify-between ">
             <span className="flex gap-5  items-center justify-center">

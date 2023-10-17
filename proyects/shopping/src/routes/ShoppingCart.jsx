@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { CardTable } from '../components/cards/CardTable'
 import { useCart } from '../hooks/useCart'
 export const ShoppingCart = () => {
-    const { addToCart, cart, removeCart } = useCart()
+    const { addToCart, cart, total, subtotal, removeCart } = useCart()
 
     return (
         <article className='flex  gap-5 mt-5 w-full justify-between'>
@@ -22,11 +22,11 @@ export const ShoppingCart = () => {
                 <h1 className='uppercase font-bold text-xl border-b pb-5'>carts totals</h1>
                 <strong className='flex justify-between items-center'>
                     <h2>SubTotal</h2>
-                    <p className='text-gray-600'>${cart.filter(item => item.quantity > 0).reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)}</p>
+                    <p className='text-gray-600'>${total}</p>
                 </strong>
                 <strong className='flex justify-between items-center'>
                     <h2>Total</h2>
-                    <p>${cart.filter(item => item.quantity > 0).reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)}</p>
+                    <p>${subtotal}</p>
                 </strong>
                 <button className='uppercase text-white font-bold  text-lg xl:h-12 h-10 bg-black hover:opacity-80'>
                     <Link > proced to check </Link>

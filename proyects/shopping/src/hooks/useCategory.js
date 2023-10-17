@@ -5,17 +5,16 @@ export const useCategory = () => {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState("");
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const data = await getCategories();
+    getCategories()
+      .then((data) => {
         setCategories(data);
-        console.log(data);
-      } catch (error) {
-        console.log(error);
+      })
+      .catch((error) => {
         setError(error);
-      }
-    };
-    fetchCategories();
+      })
+      .finally(() => {
+        console.log("TERMINO LA CARGA DE CATEGORIAS");
+      });
   }, []);
   return { categories, error };
 };
