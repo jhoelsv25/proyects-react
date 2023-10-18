@@ -1,15 +1,15 @@
 import { IconHeart, IconHeartFill } from '../../icons/Icons'
 import { useFavorite } from '../../hooks/useFavorite'
-import { useFilter } from '../../hooks/useFilter'
+
 import { useCart } from '../../hooks/useCart'
-export const CardList = () => {
+export const CardList = ({ data }) => {
     const { favorite, setFavorite } = useFavorite()
-    const { products } = useFilter()
+
     const { addToCart } = useCart()
     return (
         <ul className='flex flex-col '>
             {
-                products.map(res => {
+                data.map(res => {
                     return (
                         <li key={res.id} className='p-3 flex gap-5 shadow-lg'>
                             <img src={res.thumbnail} loading='lazy' className='w-[250px] h-[250px] object-cover' alt={res.title} />
@@ -28,7 +28,6 @@ export const CardList = () => {
 
                                     <button className='bg-blue-500 rounded-sm h-10 w-32 font-bold text-white hover:bg-blue-600' onClick={() => { addToCart(res) }} >add to cart</button>
                                     <button className='fill-blue-500' onDoubleClick={() => setFavorite(!favorite)}>
-
                                         {favorite ? <IconHeartFill /> : <IconHeart height='1.8em' fill='gray' />}
                                     </button>
                                 </footer>
@@ -38,8 +37,6 @@ export const CardList = () => {
                     )
                 })
             }
-
-
         </ul>
     )
 }

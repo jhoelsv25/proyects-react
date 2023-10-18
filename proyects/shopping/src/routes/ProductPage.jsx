@@ -5,9 +5,12 @@ import { CardGrid } from "../components/cards/CardGrid"
 import { CardList } from "../components/cards/CardList"
 import { useViewList } from "../hooks/useViewList"
 import { useCategory } from "../hooks/useCategory"
+import { useFilter } from "../hooks/useFilter"
 export const ProductPage = () => {
     const { view } = useViewList();
     const { categories, error } = useCategory()
+    const { products } = useFilter()
+    console.log('product page', products);
 
     return (
         <>
@@ -36,7 +39,7 @@ export const ProductPage = () => {
 
                         <div className="mt-5 w-full">
                             {
-                                view === 'grid' ? <CardGrid /> : <CardList />
+                                view === 'grid' ? <CardGrid data={products} /> : <CardList data={products} />
                             }
                         </div>
                     </div>

@@ -9,6 +9,7 @@ import { CartPage } from './routes/CartPage';
 import { ViewListProvider } from './contexts/viewContext';
 import { FilterProvider } from './contexts/filterContext';
 import { ShoppingCart } from './routes/ShoppingCart';
+import { FavoritePage } from './routes/FavoritePage';
 
 
 export const App = () => {
@@ -35,6 +36,7 @@ export const App = () => {
               <Route path='checkout' element={<h1>chekoot </h1>} />
               <Route path='order-complete' element={<h1>complete </h1>} />
             </Route>
+            <Route path='/favorites' element={< FavoritePage />} />
           </Routes>
         </main>
       </ViewListProvider>

@@ -1,18 +1,16 @@
 import { useCart } from '../../hooks/useCart'
 import { useFavorite } from '../../hooks/useFavorite'
-import { useFilter } from '../../hooks/useFilter'
 import { IconHeart, IconHeartFill } from '../../icons/Icons'
 
-export const CardGrid = () => {
+export const CardGrid = ({ data }) => {
     const { favorite, setFavorite } = useFavorite()
-    const { products } = useFilter()
     const { cart, addToCart } = useCart()
 
     return (
         <div >
             <ul className='flex flex-wrap gap-2'>
                 {
-                    products.map(res => {
+                    data.map(res => {
                         return (
                             <li key={res.id} className='bg-white p-2 shadow-lg flex flex-col gap-2'>
                                 <a href="#" className='rounded-md'>

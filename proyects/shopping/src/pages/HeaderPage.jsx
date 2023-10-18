@@ -4,6 +4,7 @@ import { IconBag, IconBars, IconCall, IconHeart } from '../icons/Icons'
 import { Nav } from './Nav'
 import { CartPreview } from '../components/CartPreview'
 import { useCart } from '../hooks/useCart'
+import { Link } from 'react-router-dom'
 export const Info = ({ setActived }) => {
     const { cart, total } = useCart()
 
@@ -17,7 +18,7 @@ export const Info = ({ setActived }) => {
                 </span>
             </div>
             <div className="flex gap-2 items-center border-r border-l px-3 my-2 cursor-pointer max-sm:hidden">
-                <IconHeart />
+                <Link to='favorites'><IconHeart /></Link>
             </div>
 
             <div className="flex gap-3 items-center">
