@@ -1,9 +1,8 @@
 import { useContext } from "react";
-import { FiltersContext } from "../context/filters";
+import { FiltersContext } from "../context/FilterContext";
 
-//Custum hooks
+//Custom hooks
 export const useFilters = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { filters, setFilters } = useContext(FiltersContext);
 
   const filterProducts = (products) => {
