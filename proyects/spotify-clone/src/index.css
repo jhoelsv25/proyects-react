@@ -35,3 +35,36 @@ html {
   font-style: normal;
   font-display: swap;
 }
+
+/* Personaliza la barra de desplazamiento horizontal */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccd2db;
+  border-radius: 6px;
+}
+
+/* Personaliza la barra de desplazamiento vertical */
+::-webkit-scrollbar-vertical {
+  width: 7px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  background: #7c7c7c;
+  border-radius: 8px;
+}
+
+/* Cambia la apariencia de la barra de desplazamiento en Firefox */
+/* Esto es necesario para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #facc15 #f1f1f1;
+}

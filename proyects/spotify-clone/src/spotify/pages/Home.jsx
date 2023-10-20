@@ -4,7 +4,7 @@ import { PlayListItem } from '../components/PlayListItem'
 import { Greeting } from '../utils/Greeting'
 export const Home = () => {
     return (
-        <article id="playlist-container" className="relative transition-all duration-1000 bg-green-500">
+        <article id="playlist-container" className="relative transition-all duration-1000 bg-inherit">
             <header className='pt-5 px-6'>
                 <Greeting />
             </header>
@@ -15,7 +15,7 @@ export const Home = () => {
                     }
                 </div>
             </section>
-            <div className='absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80'></div>
+            {/* <div className='absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80'></div> */}
         </article>
     )
 }
