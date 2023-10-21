@@ -40,7 +40,7 @@ const SongControl = ({ audioRef }) => {
         audioRef={audioRef}
         currentTime={currentTime}
       />
-      <small className="pb-1">{formatTime(duration)}</small>
+      <small className="pb-1">{duration ? formatTime(duration) : "0:00"}</small>
     </div>
   );
 };
@@ -59,7 +59,7 @@ export const Player = () => {
     }
   };
   return (
-    <secion className="flex h-full flex-row items-center justify-between w-full px-4 z-50">
+    <section className="flex h-full flex-row items-center justify-between w-full px-4 z-50">
       <div>
         <PlayerCard />
       </div>
@@ -84,6 +84,6 @@ export const Player = () => {
         </button>
         <Volume value={volume} setVolume={setVolume} />
       </div>
-    </secion>
+    </section>
   );
 };

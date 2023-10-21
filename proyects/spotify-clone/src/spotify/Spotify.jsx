@@ -34,7 +34,7 @@ export const Spotify = () => {
           />
         </nav>
       )}
-      <footer className="[grid-area:player] min-h-[80px] rounded-lg  ">
+      <footer className="[grid-area:player] h-[80px] rounded-lg  ">
         <Player />
       </footer>
     </div>

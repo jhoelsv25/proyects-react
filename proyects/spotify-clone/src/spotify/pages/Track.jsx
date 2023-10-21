@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { playlists } from "../../lib/data";
-import { IconFavorite, IconPause, IconPlay, IconTime } from "../icons/Icons";
+import { IconFavorite, IconPause, IconPlay } from "../icons/Icons";
 import { usePlayer } from "../hooks/usePlayer";
 import { ListAlbum } from "../components/ListAlbum";
 export const Track = () => {
@@ -11,7 +11,16 @@ export const Track = () => {
   const { title, cover, color, artists } =
     playlists.find((playlist) => playlist.id === id) || {};
   const [bgColor, setBgColor] = useState(color.accent);
+  useEffect(() => {
+    const filterSongsById = (id) => {
+      return playlists.find((song) => song.id === id);
+    };
 
+    const filteredSongs = filterSongsById(id);
+
+    // Realiza alguna acción con las canciones filtradas si es necesario
+    console.log("Canciones filtradas:", filteredSongs);
+  }, [id]);
   return (
     <article
       id="playlist-container"
@@ -37,7 +46,10 @@ export const Track = () => {
       </section>
       <section className="flex flex-col px-6 ">
         <div className="flex gap-3 items-center py-2">
-          <button className="rounded-full p-2 bg-green-500 z-10 hover:bg-green-400">
+          <button
+            onClick={() => setIsPlaying(!isPlaying)}
+            className="rounded-full p-2 bg-green-500 z-10 hover:bg-green-400"
+          >
             {isPlaying ? <IconPause /> : <IconPlay />}
           </button>
           <button className="rounded-full p-2 bg-transparent fill-green-500 z-10 hover:fill-green-400">
@@ -45,21 +57,7 @@ export const Track = () => {
           </button>
           <button>...</button>
         </div>
-        <table className="w-full z-10">
-          <thead>
-            <tr>
-              <th className="w-10 text-start">#</th>
-              <th className="w-1/2 text-start">Title</th>
-              <th className="text-start">Album</th>
-              <th>
-                <IconTime />
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <ListAlbum songs={songs} />
-          </tbody>
-        </table>
+        <ListAlbum songs={songs} />
       </section>
       <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/50"></div>
     </article>
