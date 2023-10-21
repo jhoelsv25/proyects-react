@@ -1,18 +1,12 @@
-
-
-import { Spotify } from './spotify/Spotify'
-import { ShowPlayerProvider } from './spotify/context/PlayerContext'
-
+import { Spotify } from "./spotify/Spotify";
+import { PlayerProvider } from "./spotify/context/PlayerContext";
 
 function App() {
-
   return (
-    < ShowPlayerProvider>
+    <PlayerProvider>
       <Spotify />
-    </ShowPlayerProvider>
-
-
-  )
+    </PlayerProvider>
+  );
 }
 
-export default App
+export default App;

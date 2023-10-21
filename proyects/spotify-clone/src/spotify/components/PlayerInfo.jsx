@@ -1,4 +1,3 @@
-import React from 'react'
 import { IconXmark } from '../icons/Icons'
 
 export const PlayerInfo = ({ showInfoPlayer, setShowInfoPlayer }) => {

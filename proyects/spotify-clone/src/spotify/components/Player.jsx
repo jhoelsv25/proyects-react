@@ -1,60 +1,89 @@
-import { useRef, useState } from 'react'
-import { IconPause, IconPlay } from '../icons/Icons'
-import { PlayerCard } from '../components/PlayerCard'
+import {
+  IconPause,
+  IconPlay,
+  IconVolume,
+  IconVolumeSilence,
+} from "../icons/Icons";
+import { PlayerCard } from "../components/PlayerCard";
+import { usePlayer } from "../hooks/usePlayer";
+import { Volume, MusicProgress } from "./Volume";
+import { useRef, useEffect, useState } from "react";
+
+const SongControl = ({ audioRef }) => {
+  const [currentTime, setCurrentTime] = useState(0);
+
+  useEffect(() => {
+    audioRef.current.addEventListener("timeupdate", handleTimeUpdate);
+    return () => {
+      audioRef.current.removeEventListener("timeupdate", handleTimeUpdate);
+    };
+  }, []);
+
+  const handleTimeUpdate = () => {
+    setCurrentTime(audioRef.current.currentTime);
+  };
+
+  const formatTime = (time) => {
+    if (time == null) return "00:00";
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
+  const duration = audioRef?.current?.duration ?? 0;
+
+  return (
+    <div className="flex items-center gap-x-2 justify-center text-gray-400">
+      <small className="pb-1">{formatTime(currentTime)}</small>
+      <MusicProgress
+        width={300}
+        max={duration}
+        audioRef={audioRef}
+        currentTime={currentTime}
+      />
+      <small className="pb-1">{formatTime(duration)}</small>
+    </div>
+  );
+};
+
 export const Player = () => {
-    const [isPlaying, setIsPlaying] = useState(false)
-    const [currentSong, setCurrentSong] = useState(null)
-    const [volume, setVolume] = useState(0.5)
-    const audioRed = useRef()
-    const handleClick = () => {
-        if (isPlaying) {
-            audioRed.current.pause()
-        } else {
-            audioRed.current.volume = volume
-            audioRed.current.src = '../../../public/music/1/01.mp3'
-            audioRed.current.load()
-            audioRed.current.play()
-        }
-        //         audioRed.current.currentTime = 0;
-        //         audioRed.current.volume = volume;
-        //         audioRed.current.play();
-        //         audioRed.current.pause();
-        //         audioRed.current.load();
-        //         audioRed.current.canPlayType();
-        //         audioRed.current.networkState;
-        //         audioRed.current.readyState;
-        //         audioRed.current.seekable;
-        //         audioRed.current.seeking;
-        //         audioRed.current.currentTime;
-        //         audioRed.current.duration;
-        //         audioRed.current.buffered;
-        //         audioRed.current.error;
-        //         audioRed.current.src;
-        //         audioRed.current.currentSrc;
-        //         audioRed.current.networkState;
-        //         audioRed.current.preload;
-        //         audioRed.current.buffered;
+  const { isPlaying, setIsPlaying, audioRef, volume, setVolume } = usePlayer();
+  const previusVolumeRef = useRef(volume);
+  const isVolumenSilenced = volume < 0.1;
 
-        setIsPlaying(!isPlaying)
+  const handleClick = () => {
+    if (isVolumenSilenced) {
+      setVolume(previusVolumeRef.current);
+    } else {
+      previusVolumeRef.current = volume;
+      setVolume(0);
     }
-    return (
-        <div className="flex h-full flex-row items-center justify-between w-full px-4 z-50">
-            <div>
-                <PlayerCard />
-            </div>
-            <div className="grid place-content-center gap-4 flex-1">
-                <div className="flex justify-center">
-                    <button className="bg-white rounded-full p-2 " onClick={handleClick}>
-                        {isPlaying ? <IconPause /> : <IconPlay />}
-                    </button>
-                    <audio ref={audioRed} ></audio>
-
-                </div>
-            </div>
-            <div>
-                volumem
-            </div>
-
+  };
+  return (
+    <secion className="flex h-full flex-row items-center justify-between w-full px-4 z-50">
+      <div>
+        <PlayerCard />
+      </div>
+      <div className="grid place-content-center gap-4 flex-1">
+        <div className="flex flex-col items-center justify-center">
+          <button
+            className="bg-white rounded-full p-2 w-10 h-10 flex items-center justify-center "
+            onClick={() => setIsPlaying(!isPlaying)}
+          >
+            {isPlaying ? <IconPause /> : <IconPlay />}
+          </button>
+          <audio ref={audioRef}></audio>
+          <SongControl audioRef={audioRef} />
         </div>
-    )
-}
+      </div>
+      <div className="flex flex-row gap-2 h-full items-center  justify-center">
+        <button
+          className="pb-1.5 opacity-75 hover:opacity-100 transition-all"
+          onClick={handleClick}
+        >
+          {isVolumenSilenced ? <IconVolumeSilence /> : <IconVolume />}
+        </button>
+        <Volume value={volume} setVolume={setVolume} />
+      </div>
+    </secion>
+  );
+};
