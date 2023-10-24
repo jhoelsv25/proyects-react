@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.header > .btn {
+  display: flex;
+  gap: 1rem;
+}
+input {
+  border-radius: 10px;
+}
