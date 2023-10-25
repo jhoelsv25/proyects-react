@@ -1,6 +1,6 @@
 const BASE_URL = "https://randomuser.me";
-export const getAlluser = () => {
-  const url = `${BASE_URL}/api/?results=100`;
+export const getAlluser = ({ currentPage }) => {
+  const url = `${BASE_URL}/api/?results=10&seed=jhoel%page=${currentPage}`;
   return fetch(url)
     .then((res) => res.json())
     .then((data) => {

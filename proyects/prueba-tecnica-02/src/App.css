@@ -11,3 +11,9 @@
 input {
   border-radius: 10px;
 }
+
+main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

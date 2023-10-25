@@ -7,18 +7,28 @@ export const App = () => {
   const [orderBy, setOrderBy] = useState(false);
   const [search, setSearch] = useState("");
   const [color, setColor] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const originalUser = useRef([]);
 
   useEffect(() => {
-    getAlluser()
+    setLoading(true);
+    getAlluser({ currentPage })
       .then((data) => {
-        setUsers(data);
-        originalUser.current = data;
+        setUsers((prevUser) => {
+          const newUsers = prevUser.concat(data);
+          originalUser.current = newUsers;
+          return newUsers;
+        });
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  }, []);
+  }, [currentPage]);
   const filteredUser = useMemo(() => {
     const lowerCaseSearch = search.toLowerCase();
     return search != null && search.length > 0
@@ -30,6 +40,7 @@ export const App = () => {
 
   const sortedUsers = useMemo(() => {
     let sortedList = [...filteredUser];
+
     if (orderBy) {
       sortedList.sort((a, b) => {
         if (a.location.country !== b.location.country) {
@@ -76,13 +87,25 @@ export const App = () => {
           />
         </div>
       </header>
+      <main>
+        {users.length > 0 && (
+          <AllUser
+            users={sortedUsers}
+            handleOrderBy={handleOrderBy}
+            deleteUser={handleDelete}
+            color={color}
+          />
+        )}
+        {loading && <p>Cargando...</p>}
+        {/* !loading && error && <p>Ha habido un error</p> */}
+        {!loading && users.length === 0 && <p>No hay usuarios</p>}
 
-      <AllUser
-        users={sortedUsers}
-        handleOrderBy={handleOrderBy}
-        deleteUser={handleDelete}
-        color={color}
-      />
+        {users.length > 0 && (
+          <button  onClick={() => setCurrentPage(currentPage + 1)}>
+            Cargar mas usuario
+          </button>
+        )}
+      </main>
     </>
   );
 };
