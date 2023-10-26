@@ -1,8 +1,6 @@
 import { usePokemon } from "../hooks/usePokemon";
 export const InfoPokemon = () => {
   const { pokemonInfo } = usePokemon();
-  console.log("info", pokemonInfo);
-
   return pokemonInfo ? (
     <div className="rounded-lg bg-white py-2 h-full flex flex-col items-center">
       <picture className="object-cover h-44 w-56 rounded-md aspect-square bg-sky-400 m-2">
@@ -40,16 +38,23 @@ export const InfoPokemon = () => {
         <strong className="text-black flex flex-col w-full">
           Sprites
           <picture className="flex gap-2 h-12 w-12">
-            {Object.keys(pokemonInfo.sprites).map((spriteKey, index) =>
-              index < 5 && pokemonInfo.sprites[spriteKey] ? (
-                <img
-                  key={spriteKey}
-                  src={pokemonInfo.sprites[spriteKey]}
-                  alt={spriteKey}
-                  className="rounded-full w-full border"
-                />
-              ) : null
-            )}
+            {Object.keys(pokemonInfo.sprites).map((spriteKey, index) => {
+              if (
+                index < 5 &&
+                typeof pokemonInfo.sprites[spriteKey] === "string" &&
+                pokemonInfo.sprites[spriteKey].endsWith(".png")
+              ) {
+                return (
+                  <img
+                    key={spriteKey}
+                    src={pokemonInfo.sprites[spriteKey]}
+                    alt={spriteKey}
+                    className="rounded-full w-full border"
+                  />
+                );
+              }
+              return null;
+            })}
           </picture>
         </strong>
         <strong className="text-black flex flex-col">
@@ -65,6 +70,8 @@ export const InfoPokemon = () => {
       </article>
     </div>
   ) : (
-    <p>Cargando...</p>
+    <p className="text-blue-500 font-bold text-xl text-center mt-10">
+      Cargando...
+    </p>
   );
 };

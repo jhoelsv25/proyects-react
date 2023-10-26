@@ -9,6 +9,7 @@ export const Search = () => {
     if (e.key === "Enter") {
       e.preventDefault();
       setSearch(e.target.value);
+      e.target.value = "";
     }
   };
   return (

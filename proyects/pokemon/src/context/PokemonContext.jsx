@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { createContext, useState, useEffect, useMemo } from "react";
 import { getAllPokemos, searchPokemon } from "../services/pokemons";
 
@@ -11,31 +12,11 @@ export const PokemonProvider = ({ children }) => {
   const [search, setSearch] = useState();
   const [pokemonInfo, setPokemonInfo] = useState(null);
   const [searchFilter, setSearchFilter] = useState([]);
+  const initialPokemons = useRef([]);
 
+  // Efecto para buscar por página
   useEffect(() => {
     setLoading(true);
-    searchPokemon(search)
-      .then((res) => {
-        setSearchFilter(res);
-      })
-      .catch((err) => {
-        setError(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [search]);
-  const filterPokemons = useMemo(() => {
-    console.log("filter seacrh", searchFilter);
-    if (search) {
-      return searchFilter;
-    } else {
-      return pokemons;
-    }
-  }, [pokemons, searchFilter]);
-
-  useEffect(() => {
-    setLoading(false);
     const limit = 6;
     const offset = (page - 1) * limit;
     getAllPokemos({ offset, limit })
@@ -52,28 +33,62 @@ export const PokemonProvider = ({ children }) => {
         return Promise.all(pokemonPromises);
       })
       .then((res) => {
+        initialPokemons.current = res;
         setPokemons(res);
       })
       .catch((err) => {
         setError(err);
+        setLoading(false);
       })
       .finally(() => {
         setLoading(false);
       });
   }, [page]);
 
+  // Efecto para buscar por nombre
+  useEffect(() => {
+    if (search) {
+      setLoading(true);
+      searchPokemon(search)
+        .then((res) => {
+          setPokemonInfo(null);
+          setSearchFilter([res]);
+          setError(null);
+        })
+        .catch((err) => {
+          setError(err);
+          setSearchFilter([]);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [search]);
+
+  //filtrar por pagina o por nombre
+  const filterPokemons = useMemo(() => {
+    return search ? searchFilter : pokemons;
+  }, [pokemons, search, searchFilter]);
+  //Resetar filtros
+  const resetFilter = () => {
+    const data = initialPokemons.current;
+    setSearch("");
+    setPokemons(data);
+    setError(null);
+  };
   return (
     <PokemonContext.Provider
       value={{
         setSearch,
         filterPokemons,
-        pokemons,
         setPage,
+        search,
         page,
         error,
         loading,
         pokemonInfo,
         setPokemonInfo,
+        resetFilter,
       }}
     >
       {children}

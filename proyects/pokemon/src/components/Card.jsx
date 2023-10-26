@@ -1,8 +1,7 @@
 import { usePokemon } from "../hooks/usePokemon";
 
 export const Card = ({ data }) => {
-  const { setPokemonInfo, searchFilter } = usePokemon();
-  console.log("card", searchFilter);
+  const { setPokemonInfo } = usePokemon();
 
   const handleInfo = (item) => {
     setPokemonInfo(item);

@@ -7,6 +7,5 @@ export const usePokemon = () => {
     throw new Error(
       "usePokemon hook can not be used outside a PokemonProvider"
     );
-
   return context;
 };
