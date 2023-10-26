@@ -15,7 +15,7 @@ export const Spotify = () => {
       <aside className="[grid-area:aside]   flex flex-col overflow-y-auto">
         <NavMenu />
       </aside>
-      <main className="[grid-area:main] relative w-full rounded-lg bg-zinc-900 overflow-y-auton overflow-x-hidden ">
+      <main className="[grid-area:main] relative w-full rounded-lg bg-zinc-900 overflow-y-auto overflow-x-hidden ">
         <header className="sticky top-0 z-50 bg-transparent h-[50px]">
           <Header />
         </header>
